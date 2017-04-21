@@ -23,7 +23,7 @@ namespace StockAnalysis_WCF
             }
             if (composite.BoolValue)
             {
-                composite.StringValue += "Sara";
+                composite.StringValue += "Suffix";
             }
             return composite;
         }
