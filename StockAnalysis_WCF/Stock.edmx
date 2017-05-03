@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StockModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="action">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="quantite" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cotisations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dateCotisation" Type="date" Nullable="false" />
+          <Property Name="ouverture" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="fermeture" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="minVal" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="maxVal" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="volFinance" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="volQnte" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="codeAction" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_cotisations_action">
+          <End Role="action" Type="Self.action" Multiplicity="1" />
+          <End Role="cotisations" Type="Self.cotisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="action">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="cotisations">
+              <PropertyRef Name="codeAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StockModelStoreContainer">
+          <EntitySet Name="action" EntityType="Self.action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cotisations" EntityType="Self.cotisations" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cotisations_action" Association="Self.FK_cotisations_action">
+            <End Role="action" EntitySet="action" />
+            <End Role="cotisations" EntitySet="cotisations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StockModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="action">
+          <Key>
+            <PropertyRef Name="code" />
+          </Key>
+          <Property Name="code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="quantite" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cotisations" Relationship="Self.FK_cotisations_action" FromRole="action" ToRole="cotisations" />
+        </EntityType>
+        <EntityType Name="cotisations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dateCotisation" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ouverture" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="fermeture" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="minVal" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="maxVal" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="volFinance" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="volQnte" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="codeAction" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="action" Relationship="Self.FK_cotisations_action" FromRole="cotisations" ToRole="action" />
+        </EntityType>
+        <Association Name="FK_cotisations_action">
+          <End Role="action" Type="Self.action" Multiplicity="1" />
+          <End Role="cotisations" Type="Self.cotisations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="action">
+              <PropertyRef Name="code" />
+            </Principal>
+            <Dependent Role="cotisations">
+              <PropertyRef Name="codeAction" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StockEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="action" EntityType="Self.action" />
+          <EntitySet Name="cotisations" EntityType="Self.cotisations" />
+          <AssociationSet Name="FK_cotisations_action" Association="Self.FK_cotisations_action">
+            <End Role="action" EntitySet="action" />
+            <End Role="cotisations" EntitySet="cotisations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StockModelStoreContainer" CdmEntityContainer="StockEntities">
+          <EntitySetMapping Name="action">
+            <EntityTypeMapping TypeName="StockModel.action">
+              <MappingFragment StoreEntitySet="action">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="quantite" ColumnName="quantite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cotisations">
+            <EntityTypeMapping TypeName="StockModel.cotisations">
+              <MappingFragment StoreEntitySet="cotisations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dateCotisation" ColumnName="dateCotisation" />
+                <ScalarProperty Name="ouverture" ColumnName="ouverture" />
+                <ScalarProperty Name="fermeture" ColumnName="fermeture" />
+                <ScalarProperty Name="minVal" ColumnName="minVal" />
+                <ScalarProperty Name="maxVal" ColumnName="maxVal" />
+                <ScalarProperty Name="volFinance" ColumnName="volFinance" />
+                <ScalarProperty Name="volQnte" ColumnName="volQnte" />
+                <ScalarProperty Name="codeAction" ColumnName="codeAction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

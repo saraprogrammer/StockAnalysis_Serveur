@@ -35,22 +35,87 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IService1.cs" />
+    <Compile Include="Action.cs">
+      <DependentUpon>Stock.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActionADO.cs" />
+    <Compile Include="ActionStock.cs" />
+    <Compile Include="Cotisation.cs" />
+    <Compile Include="CotisationADO.cs" />
+    <Compile Include="cotisations.cs">
+      <DependentUpon>Stock.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IStockService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service1.cs" />
+    <Compile Include="Stock.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stock.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stock.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stock.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Stock.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="StockService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="Stock.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Stock.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Stock.edmx.diagram">
+      <DependentUpon>Stock.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Stock.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Stock.edmx</DependentUpon>
+      <LastGenOutput>Stock.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Stock.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stock.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Stock.edmx</DependentUpon>
+      <LastGenOutput>Stock.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
