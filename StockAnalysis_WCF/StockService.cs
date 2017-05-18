@@ -13,15 +13,7 @@ namespace StockAnalysis_WCF
         public List<ActionStock> GetAllActions()
         {
             List<ActionStock> actions = ActionADO.SelectionnerActions();
-            //string nom="";
 
-            //foreach (var item in actions)
-            //{
-            //    //Console.WriteLine(item.Code + ", " + item.Nom + ", " + item.Quantite);
-
-            //    nom = item.Nom;
-                
-            //}
 
             return actions;
         }

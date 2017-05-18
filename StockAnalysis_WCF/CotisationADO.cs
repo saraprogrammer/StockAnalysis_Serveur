@@ -35,11 +35,6 @@ namespace StockAnalysis_WCF
                                            MaxVal = cot.maxVal,
                                            VolFinance = cot.volFinance,
                                            VolQnt = cot.volQnte,
-                                           //Fermeture = decimal.ToDouble(cot.fermeture),
-                                           //MinVal = decimal.ToDouble(cot.minVal),
-                                           //MaxVal = decimal.ToDouble(cot.maxVal),
-                                           //VolFinance = decimal.ToDouble(cot.volFinance),
-                                           //VolQnt = decimal.ToDouble(cot.volQnte),
                                            CodeAction = cot.codeAction
                                        }).ToList();
                 }

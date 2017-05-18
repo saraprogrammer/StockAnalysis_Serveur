@@ -22,13 +22,6 @@ namespace StockAnalysis_WCF
             try
             {
 
-                //foreach(var a in dbContext.action)
-                //{
-                //    listActions.Add(a);
-                //}
-
-                //foreach(var objAction in dbContext.Database.SqlQuery<ActionStock>("SELECT * FROM "))
-
                     using (var dbContext = new StockEntities())
                     {
                     listActions = (from actn in dbContext.action
@@ -40,7 +33,6 @@ namespace StockAnalysis_WCF
                                              Quantite = actn.quantite
                                          }).ToList();
                     }
-                //foreach (var person in entities.Database.SqlQuery<Person>("SELECT * FROM dbo.Persons"))
             }
             catch (Exception ex)
             {
